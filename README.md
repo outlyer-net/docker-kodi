@@ -33,7 +33,7 @@ $ docker run --rm -it \
 		-v /etc/localtime:/etc/localtime:ro \
     	-e DISPLAY \
     	--device /dev/snd \
-    	outlyernet/docker-kodi
+    	outlyernet/kodi
 ```
 
 You probably want status to persist between runs, mounting a Docker volume on `/root/.kodi` will achieve that, i.e.:
@@ -45,7 +45,7 @@ $ docker run --rm -it \
         -v kodi_data:/root/.kodi \`
     	-e DISPLAY \
     	--device /dev/snd \
-    	outlyernet/docker-kodi
+    	outlyernet/kodi
 ```
 
 (NOTE that Docker will create the volume if it didn't exist)
