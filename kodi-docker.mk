@@ -13,9 +13,9 @@ launch:
 		-v /etc/localtime:/etc/localtime:ro \
 		-v $(VOLUME_NAME):/root/.kodi \
 		-v $(HOME):/root/$(shell id -un)-home:ro \
-    	-e DISPLAY \
-    	--device /dev/snd \
-    	$(IMAGE_NAME):$(TAG)
+		-e DISPLAY \
+		--device /dev/snd \
+		$(IMAGE_NAME):$(TAG)
 
 build:
 	docker build -t $(IMAGE_NAME):$(TAG) .
