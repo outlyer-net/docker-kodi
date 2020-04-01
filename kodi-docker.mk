@@ -5,12 +5,14 @@ IMAGE_NAME=outlyernet/kodi
 VOLUME_NAME=kodi
 
 launch:
+	@# Possibly useful additional arguments
 	@#	--user $(shell id -u):$(shell id -g) \ 
 	@#	-v /etc/passwd:/etc/passwd:ro \ 
 	exec docker run --rm -it \
 	    -v /tmp/.X11-unix/:/tmp/.X11-unix/:ro \
 		-v /etc/localtime:/etc/localtime:ro \
 		-v $(VOLUME_NAME):/root/.kodi \
+		-v $(HOME):/root/$(shell id -un)-home:ro \
     	-e DISPLAY \
     	--device /dev/snd \
     	$(IMAGE_NAME):$(TAG)

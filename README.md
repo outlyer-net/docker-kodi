@@ -50,6 +50,13 @@ $ docker run --rm -it \
 
 (NOTE that Docker will create the volume if it didn't exist)
 
+## Accessing local media
+
+To access local media you'll have to mount the appropriate directories with additional `-v ...` arguments.
+
+The included script mounts the home directory (read-only) of the user launching it, but doesn't try to guess any other mount points.\
+It is mounted in `/root/<username>-home`, so that within Kodi it's easily reachable as "*Home folder*" → "*&lt;username&gt;-home*".
+
 ## Local build
 
 The script can also build the image locally if you prefer that over pulling it from Docker Hub:
