@@ -15,6 +15,7 @@ launch:
 		-v $(HOME):/root/$(shell id -un)-home:ro \
 		-e DISPLAY \
 		--device /dev/snd \
+		--device /dev/dri \
 		$(IMAGE_NAME):$(TAG)
 
 build:
