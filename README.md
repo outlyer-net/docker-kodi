@@ -6,6 +6,14 @@ This image allows running the latest version of Kodi in a sandbox.
 
 A script is provided to ease launching.
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/outlyernet/kodi.svg)][dockerhub]
+[![Image Size](https://images.microbadger.com/badges/image/outlyernet/kodi.svg)][microbadger]
+
+## Information
+
+* [Docker Hub][dockerhub]
+* [Github][github]
+
 ## Launching
 
 ### Through the script
@@ -64,3 +72,8 @@ The script can also build the image locally if you prefer that over pulling it f
 ```
 ./kodi-docker.mk build
 ```
+
+
+[dockerhub]: https://hub.docker.com/r/outlyernet/kodi/
+[github]: https://github.com/outlyer-net/docker-kodi
+[microbadger]: https://microbadger.com/images/outlyernet/kodi
