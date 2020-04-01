@@ -11,12 +11,12 @@ A script is provided to ease launching.
 
 ## Information
 
+**PLEASE NOTE** this is a work-in-progress, it will probably not work completely and properly yet
+
 * [Docker Hub][dockerhub]
 * [Github][github]
 
-## Launching
-
-### Through the script
+## Launching through the included script
 
 Just run the included script from an X-Window session and it should pick up valid values.
 
@@ -24,7 +24,7 @@ Just run the included script from an X-Window session and it should pick up vali
 $ kodi-docker.mk
 ```
 
-### Manually
+## Launching manually
 
 Kodi will need to pick up at the very least:
 - The X11 socket (`/tmp/.X11-unix/`)
@@ -44,6 +44,8 @@ $ docker run --rm -it \
     	outlyernet/kodi
 ```
 
+### Persisting configuration and installed plugins
+
 You probably want status to persist between runs, mounting a Docker volume on `/root/.kodi` will achieve that, i.e.:
 
 ```
@@ -58,7 +60,15 @@ $ docker run --rm -it \
 
 (NOTE that Docker will create the volume if it didn't exist)
 
-## Accessing local media
+### Enabling hardware accelerated decoding
+
+To enable hardware decoding of video, pass the DRI device to the container:
+
+```
+... --device /dev/dri
+```
+
+### Accessing local media
 
 To access local media you'll have to mount the appropriate directories with additional `-v ...` arguments.
 
