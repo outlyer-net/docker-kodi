@@ -20,12 +20,40 @@ launch:
 build:
 	docker build -t $(IMAGE_NAME):$(TAG) .
 
-tag: build
+tag: # build # No longer depends on build so that the pulled version can be tagged
 	@echo 'Trying to tag with the appropriate version'
-	@# Tag names cannot contain plus signs
+	@# The full package version
+	@# (Tag names cannot contain plus signs)
 	docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):$(shell docker run --rm \
 				--entrypoint /usr/bin/dpkg-query \
 				$(IMAGE_NAME) \
 				-f='$${Version}' -W kodi \
 				| cut -d: -f2- \
 				| sed 's/+/-/g')
+	@# Major/Minor version
+	docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):$(shell docker run --rm \
+				--entrypoint /usr/bin/dpkg-query \
+				$(IMAGE_NAME) \
+				-f='$${Version}' -W kodi \
+				| cut -d: -f2- \
+				| cut -d+ -f1 )
+	@# Major version
+	docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):$(shell docker run --rm \
+				--entrypoint /usr/bin/dpkg-query \
+				$(IMAGE_NAME) \
+				-f='$${Version}' -W kodi \
+				| cut -d: -f2 \
+				| cut -d. -f1 )
+	@# Tag with (known) codename
+	case $(shell docker run --rm \
+				--entrypoint /usr/bin/dpkg-query \
+				$(IMAGE_NAME) \
+				-f='$${Version}' -W kodi \
+				| cut -d: -f2- \
+				| cut -d. -f1 ) \
+	in \
+		16) docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):jarvis ;;\
+		17) docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):krypton ;;\
+		18) docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):leia ;;\
+		19) docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):matrix ;;\
+	esac
