@@ -57,3 +57,7 @@ tag: # build # No longer depends on build so that the pulled version can be tagg
 		18) docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):leia ;;\
 		19) docker tag $(IMAGE_NAME):$(TAG) $(IMAGE_NAME):matrix ;;\
 	esac
+
+# Helper rule to build older versions without overwriting :latest
+build-tag-%:
+	docker build -t $(IMAGE_NAME):$* .
