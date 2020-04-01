@@ -13,9 +13,10 @@ launch:
 		-v /etc/localtime:/etc/localtime:ro \
 		-v $(VOLUME_NAME):/root/.kodi \
 		-v $(HOME):/root/$(shell id -un)-home:ro \
-    	-e DISPLAY \
-    	--device /dev/snd \
-    	$(IMAGE_NAME):$(TAG)
+		-e DISPLAY \
+		--device /dev/snd \
+		--device /dev/dri \
+		$(IMAGE_NAME):$(TAG)
 
 build:
 	docker build -t $(IMAGE_NAME):$(TAG) .
@@ -61,3 +62,16 @@ tag: # build # No longer depends on build so that the pulled version can be tagg
 # Helper rule to build older versions without overwriting :latest
 build-tag-%:
 	docker build -t $(IMAGE_NAME):$* .
+
+# Launch a shell within a container, helpful for testing changes
+shell:
+	exec docker run --rm -it \
+	    -v /tmp/.X11-unix/:/tmp/.X11-unix/:ro \
+		-v /etc/localtime:/etc/localtime:ro \
+		-v $(VOLUME_NAME):/root/.kodi \
+		-v $(HOME):/root/$(shell id -un)-home:ro \
+		-e DISPLAY \
+		--device /dev/snd \
+		--device /dev/dri \
+		--entrypoint /bin/bash \
+		$(IMAGE_NAME):$(TAG)
