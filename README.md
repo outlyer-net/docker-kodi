@@ -12,7 +12,9 @@ A script is provided to ease launching.
 
 Just run the included script from an X-Window session and it should pick up valid values.
 
-`$ kodi-docker.mk`
+```
+$ kodi-docker.mk
+```
 
 ### Manually
 
@@ -47,3 +49,11 @@ $ docker run --rm -it \
 ```
 
 (NOTE that Docker will create the volume if it didn't exist)
+
+## Local build
+
+The script can also build the image locally if you prefer that over pulling it from Docker Hub:
+
+```
+./kodi-docker.mk build
+```
